@@ -1,0 +1,8 @@
+main > .breadcrumb-container {
+  padding: 10px;
+}
+
+.breadcrumb > div {
+  display: flex;
+  flex-direction: column;
+}
