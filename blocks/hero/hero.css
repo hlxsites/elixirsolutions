@@ -64,21 +64,12 @@ main .hero h1 {
 
 main .hero h2 {
   color: white;
-  /* font-size: 36px; */
-  /* font-weight: 700; */
   padding: 0 24px 48px 48px !important;
   z-index: 2;
 }
 
 main .hero picture {
-  /* position: absolute;
   z-index: -1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  object-fit: cover;
-  box-sizing: border-box; */
 }
 
 main .hero img {
