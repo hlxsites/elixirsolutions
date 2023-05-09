@@ -24,7 +24,7 @@ function buildHeroBlock(main) {
   const h1 = main.querySelector('div:nth-child(1) > h1');
   const h2 = main.querySelector('div:nth-child(1) > h2');
   const picture = main.querySelector('div:nth-child(1) picture');
-  const cta = main.querySelector('div:nth-child(1) a')
+  const cta = main.querySelector('div:nth-child(1) a');
   const leftBox = document.createElement('div');
   leftBox.classList.add('left-box');
   leftBox.append(h1);
