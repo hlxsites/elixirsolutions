@@ -22,7 +22,7 @@ const transformBlocks = (main, document) => {
     if (hero.classList.contains('cmp-hero-syle_pink-bg')) {
       const metdataCells = [
         ['Section Metadata'],
-        ['Style', 'Alternate Hero']
+        ['Style', 'Alternate Hero'],
       ];
       const sectionMetadataBlock = WebImporter.DOMUtils.createTable(metdataCells, document);
       hero.append(sectionMetadataBlock);
