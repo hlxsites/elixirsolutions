@@ -3,7 +3,7 @@ main > .breadcrumb-container {
 }
 
 .breadcrumb > div {
-  color: #024c99;
+  color: var(--link-color);
   font-size: 16px;
   padding-left: 10px;
 }
