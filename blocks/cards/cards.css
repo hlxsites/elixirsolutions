@@ -1,31 +1,103 @@
+.cards {
+  --num-cols: 1;
+}
+
+.cards.cards-four-up {
+  --num-cols: 1;
+}
+
+@media (min-width: 600px) {
+  .cards {
+    --num-cols: 3;
+  }
+  
+  .cards.cards-four-up {
+    --num-cols: 2;
+  }
+}
+
+@media (min-width: 900px) {
+  .cards {
+    --num-cols: 3;
+  }
+  
+  .cards.cards-four-up {
+    --num-cols: 4;
+  }
+}
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 16px;
+  gap: 2rem;
+  grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
 }
 
 .cards > ul > li {
-  border: 1px solid var(--highlight-background-color);
-  background-color: var(--background-color)
+  text-align: center;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
-}
-
-.cards .cards-card-image {
-  line-height: 0;
-}
-
-.cards .cards-card-body > *:first-child {
-  margin-top: 0;
+@media (min-width: 600px) {
+  .cards > ul > li {
+   text-align: left;
+  }
 }
 
 .cards > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  height: auto;
+  border-radius: 4px 4px 0 0;
+} 
+
+/* link styles */
+.cards .card-link-wrapper {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.cards .card-link-wrapper :is(h2, h3, h4, h5, h6) {
+  color: var(--headline-color);
+  margin-block: .75em;
+}
+
+.cards .card-link-wrapper .card-more-cta {
+  color: var(--link-color);
+  font-weight: 800;
+  font-size: var(--heading-font-size-xs);
+}
+
+.cards .card-link-wrapper .card-more-cta::after {
+  content: "";
+  width: 11px;
+  height: 10px;
+  vertical-align: middle;
+  margin-left: 10px;
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2211%22%20height%3D%2210%22%20viewBox%3D%220%200%2011%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M10.6081%205.37934C10.8551%205.13235%2010.8551%204.7319%2010.6081%204.48491L6.58318%200.459992C6.33619%200.213003%205.93574%200.213003%205.68875%200.459992C5.44176%200.706982%205.44176%201.10743%205.68875%201.35442L9.26646%204.93213L5.68875%208.50984C5.44176%208.75683%205.44176%209.15728%205.68875%209.40426C5.93574%209.65125%206.33619%209.65125%206.58318%209.40426L10.6081%205.37934ZM0.160889%205.56458L10.1609%205.56458L10.1609%204.29967L0.160889%204.29967L0.160889%205.56458Z%22%20fill%3D%22%23024C99%22%2F%3E%3C%2Fsvg%3E");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.cards .card-link-wrapper .card-more-cta:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* when in highlight section */
+main .section.highlight .cards-wrapper {
+  background-color: rgb(209 231 241);
+  padding: 48px;
+}
+
+main .section.highlight.cards-container .default-content-wrapper h3 {
+  margin-block: .25em;
+  text-align: center;
+}
+
+main .section.highlight .cards {
+  --headline-color: var(--clr-midnight-blue);
 }

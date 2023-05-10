@@ -104,7 +104,7 @@ export default async function decorate(block) {
     nav.id = 'nav';
     nav.innerHTML = html;
 
-    const classes = ['brand', 'sections', 'tools'];
+    const classes = ['brand', 'sections', 'register', 'tools'];
     classes.forEach((c, i) => {
       const section = nav.children[i];
       if (section) section.classList.add(`nav-${c}`);
@@ -122,6 +122,21 @@ export default async function decorate(block) {
           }
         });
       });
+    }
+
+    const regLink = nav.querySelector('.nav-register a');
+    if (regLink) {
+      regLink.classList.add('button');
+    }
+
+    const search = nav.querySelector('.nav-tools .icon-search');
+    if (search) {
+      const tools = nav.querySelector('.nav-tools');
+      tools.innerHTML = `
+      <div class="search-form">
+        <input type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
+        <span class="icon icon-search"></span>
+      </div>`;
     }
 
     // hamburger for mobile

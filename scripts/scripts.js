@@ -6,11 +6,11 @@ import {
   decorateButtons,
   decorateIcons,
   decorateSections,
-  decorateBlocks,
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
   loadCSS,
+  decorateBlock,
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
@@ -64,6 +64,29 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * adds container divs to each section and other additional section decoration activities
+ * @param {Element} main The container element
+ */
+function decorateSectionsExt(main) {
+  main.querySelectorAll('.section').forEach((section) => {
+    const container = document.createElement('div');
+    container.classList.add('section-container');
+    [...section.children].forEach((child) => container.append(child));
+    section.append(container);
+  });
+}
+
+/**
+ * Decorates all blocks in a container element.
+ * @param {Element} main The container element
+ */
+export function decorateBlocks(main) {
+  main
+    .querySelectorAll('div.section > div > div > div')
+    .forEach(decorateBlock);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -74,6 +97,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionsExt(main);
   decorateBlocks(main);
 }
 
