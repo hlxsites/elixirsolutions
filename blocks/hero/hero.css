@@ -12,9 +12,6 @@ main .hero {
   position: relative;
   padding: 32px;
   min-height: 300px;
-}
-
-main .hero {
   display: flex;
   max-width: var(--max-content-width);
   margin: auto;
