@@ -16,7 +16,7 @@ main .hero {
 
 main .hero > div > div {
   display: flex;
-  width: 1200px;
+  max-width: var(--max-content-width);
   margin: auto;
 }
 
@@ -24,9 +24,14 @@ main .hero .left-box {
   background: #024c99;
   min-height: 400px;
   display: flex;
+  flex: 1;
   flex-direction: column;
   overflow: hidden;
   position: relative;
+}
+
+main .hero .right-box {
+  flex: 1;
 }
 
 main .hero .left-box .bg-circle-1 {
@@ -39,7 +44,6 @@ main .hero .left-box .bg-circle-1 {
   top: -210px;
   border-radius: 195px;
   opacity: .4;
-  z-index: 1;
 }
 
 main .hero .left-box .bg-circle-2 {
@@ -52,20 +56,19 @@ main .hero .left-box .bg-circle-2 {
   bottom: 40px;
   border-radius: 110px;
   opacity: .4;
-  z-index: 1;
 }
 
 main .hero h1 {
   color: white;
-  max-width: 1200px;
-  margin-left: auto;
   margin-right: auto;
+  padding: 48px;
+  z-index: 1;
 }
 
 main .hero h2 {
   color: white;
   padding: 0 24px 48px 48px !important;
-  z-index: 2;
+  z-index: 1;
 }
 
 main .hero picture {
@@ -76,4 +79,26 @@ main .hero img {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+main .hero .button {
+  background-color: white;
+  color: var(--link-color);
+  margin: auto 48px 40px 56px;
+  width: 278px;
+  font-size: 24px;
+  z-index: 2;
+  transition: .3s;
+}
+
+@media (min-width: 600px) {
+  main .hero .right-box {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  main .hero .right-box {
+    display: block;
+  }
 }

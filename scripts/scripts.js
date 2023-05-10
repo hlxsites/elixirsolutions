@@ -26,10 +26,14 @@ function buildHeroBlock(main) {
   const picture = main.querySelector('div:nth-child(1) picture');
   const cta = main.querySelector('div:nth-child(1) a');
   const leftBox = document.createElement('div');
+
   leftBox.classList.add('left-box');
   leftBox.append(h1);
   if (h2 !== null) leftBox.append(h2);
-  if (cta !== null) leftBox.append(cta);
+  if (cta !== null) {
+    leftBox.append(cta);
+    cta.classList.add('button');
+  }
   // add two divs for two background circles
   const c1 = document.createElement('div');
   c1.classList.add('bg-circle-1');
