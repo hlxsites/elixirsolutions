@@ -26,18 +26,29 @@ const getAllPaths = async (paths) => {
   }
   return result;
 };
+
+const createLink = (path) => {
+  const pathLink = document.createElement('a');
+  pathLink.href = path.url;
+  pathLink.innerText = path.name;
+  return pathLink;
+};
+
 export default async function decorate(block) {
   const breadcrumb = block.querySelector(':scope div');
-  const breadcrumbLinks = [];
-  const path = window.location.pathname;
-  const paths = await getAllPaths(path);
+  breadcrumb.innerHTML = createLink({
+    path: '',
+    name: 'Home',
+    url: window.location.origin,
+  }).outerHTML;
 
-  paths.forEach((pathPart) => {
-    const pathLink = document.createElement('a');
-    pathLink.href = pathPart.url;
-    pathLink.innerText = pathPart.name;
-    breadcrumbLinks.push(pathLink.outerHTML);
-  });
-  const space = '&nbsp;&nbsp;&nbsp;';
-  breadcrumb.innerHTML = breadcrumbLinks.join(`${space}/${space}`);
+  window.setTimeout(async () => {
+    const breadcrumbLinks = [];
+    const path = window.location.pathname;
+    const paths = await getAllPaths(path);
+
+    paths.forEach((pathPart) => breadcrumbLinks.push(createLink(pathPart).outerHTML));
+    const space = '&nbsp;&nbsp;&nbsp;';
+    breadcrumb.innerHTML = breadcrumbLinks.join(`${space}/${space}`);
+  }, 3000);
 }
