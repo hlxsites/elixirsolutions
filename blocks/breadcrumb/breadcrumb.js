@@ -7,22 +7,16 @@ const getPageTitle = async (url) => {
 
 const getAllPaths = async (paths) => {
   const result = [];
-  const pathsList = paths.split('/');
+  // remove first and last slash characters
+  const pathsList = paths.replace(/^\/|\/$/g, '').split('/');
   for (let i = 0; i < pathsList.length; i += 1) {
     const pathPart = pathsList[i];
-    if (i === 0) {
-      result.push({
-        path: '',
-        name: 'Home',
-        url: window.location.origin,
-      });
-    } else {
-      const path = `${result[i - 1].path}/${pathPart}`;
-      const url = `${window.location.origin}${path}`;
-      /* eslint-disable-next-line no-await-in-loop */
-      const name = await getPageTitle(url);
-      result.push({ path, name, url });
-    }
+    const prevPath = result[i - 1] ? result[i - 1].path : '';
+    const path = `${prevPath}/${pathPart}`;
+    const url = `${window.location.origin}${path}`;
+    /* eslint-disable-next-line no-await-in-loop */
+    const name = await getPageTitle(url);
+    result.push({ path, name, url });
   }
   return result;
 };
@@ -36,14 +30,11 @@ const createLink = (path) => {
 
 export default async function decorate(block) {
   const breadcrumb = block.querySelector(':scope div');
-  breadcrumb.innerHTML = createLink({
-    path: '',
-    name: 'Home',
-    url: window.location.origin,
-  }).outerHTML;
+  const HomeLink = createLink({ path: '', name: 'Home', url: window.location.origin });
+  const breadcrumbLinks = [HomeLink.outerHTML];
+  breadcrumb.innerHTML = HomeLink.outerHTML;
 
   window.setTimeout(async () => {
-    const breadcrumbLinks = [];
     const path = window.location.pathname;
     const paths = await getAllPaths(path);
 
