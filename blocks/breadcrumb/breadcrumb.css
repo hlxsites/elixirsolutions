@@ -3,6 +3,11 @@ main > .breadcrumb-container {
 }
 
 .breadcrumb > div {
-  display: flex;
-  flex-direction: column;
+  color: #024c99;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.breadcrumb > div a {
+  text-decoration: none;
 }

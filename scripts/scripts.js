@@ -38,8 +38,7 @@ function buildHeroBlock(main) {
 function buildBreadcrumbBlock(main) {
   const title = document.querySelector('head title');
 
-  // eslint-disable-next-line no-bitwise
-  if (title.innerText !== 'Elixir-Home') {
+  if (title.innerText !== 'Elixir-Home' && window.isErrorPage !== true) {
     const section = document.createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
