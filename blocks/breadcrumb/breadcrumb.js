@@ -5,11 +5,11 @@ const getPageTitle = async (url) => {
   return html.querySelector('title').innerText;
 };
 
-const getAllPaths = async (paths) => {
+const getAllPathsExceptCurrent = async (paths) => {
   const result = [];
   // remove first and last slash characters
   const pathsList = paths.replace(/^\/|\/$/g, '').split('/');
-  for (let i = 0; i < pathsList.length; i += 1) {
+  for (let i = 0; i < pathsList.length - 1; i += 1) {
     const pathPart = pathsList[i];
     const prevPath = result[i - 1] ? result[i - 1].path : '';
     const path = `${prevPath}/${pathPart}`;
@@ -32,14 +32,17 @@ export default async function decorate(block) {
   const breadcrumb = block.querySelector(':scope div');
   const HomeLink = createLink({ path: '', name: 'Home', url: window.location.origin });
   const breadcrumbLinks = [HomeLink.outerHTML];
-  breadcrumb.innerHTML = HomeLink.outerHTML;
 
   window.setTimeout(async () => {
     const path = window.location.pathname;
-    const paths = await getAllPaths(path);
+    const paths = await getAllPathsExceptCurrent(path);
 
     paths.forEach((pathPart) => breadcrumbLinks.push(createLink(pathPart).outerHTML));
+    const currentPath = document.createElement('span');
+    currentPath.innerText = document.querySelector('title').innerText;
+    breadcrumbLinks.push(currentPath.outerHTML);
+
     const space = '&nbsp;&nbsp;&nbsp;';
     breadcrumb.innerHTML = breadcrumbLinks.join(`${space}/${space}`);
-  }, 3000);
+  }, 1000);
 }

@@ -4,8 +4,9 @@ main > .breadcrumb-container {
 
 .breadcrumb > div {
   color: var(--link-color);
-  font-size: 16px;
+  font-size: var(--body-font-size-xs);
   padding-left: 10px;
+  min-height: 26px;
 }
 
 .breadcrumb > div a {
