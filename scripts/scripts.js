@@ -21,35 +21,19 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  const h1 = main.querySelector('div:nth-child(1) > h1');
-  const h2 = main.querySelector('div:nth-child(1) > h2');
-  const picture = main.querySelector('div:nth-child(1) picture');
-  const cta = main.querySelector('div:nth-child(1) a');
-  const leftBox = document.createElement('div');
-
-  leftBox.classList.add('left-box');
-  leftBox.append(h1);
-  if (h2 !== null) leftBox.append(h2);
-  if (cta !== null) {
-    leftBox.append(cta);
-    cta.classList.add('button');
+  const h1 = main.querySelector('h1');
+  if (!h1) {
+    return;
   }
-  // add two divs for two background circles
-  const c1 = document.createElement('div');
-  c1.classList.add('bg-circle-1');
-  leftBox.append(c1);
-  const c2 = document.createElement('div');
-  c2.classList.add('bg-circle-2');
-  leftBox.append(c2);
 
-  const rightBox = document.createElement('div');
-  rightBox.classList.add('right-box');
-  rightBox.append(picture);
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    // section.append(buildBlock('hero', { elems: [picture, h1] }));
-    section.append(buildBlock('hero', { elems: [leftBox, rightBox] }));
+  const section = h1.closest('div');
+
+  const h2 = section.querySelector('h2');
+  const picture = section.querySelector('picture');
+  const cta = section.querySelector('a');
+
+  if (picture) {
+    section.append(buildBlock('hero', { elems: [h1, h2, picture, cta] }));
     main.prepend(section);
   }
 }

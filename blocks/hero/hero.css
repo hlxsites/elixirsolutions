@@ -14,7 +14,7 @@ main .hero {
   min-height: 300px;
 }
 
-main .hero > div > div {
+main .hero {
   display: flex;
   max-width: var(--max-content-width);
   margin: auto;
@@ -32,6 +32,7 @@ main .hero .left-box {
 
 main .hero .right-box {
   flex: 1;
+  display: none;
 }
 
 main .hero .left-box .bg-circle-1 {
@@ -89,12 +90,6 @@ main .hero .button {
   font-size: 24px;
   z-index: 2;
   transition: .3s;
-}
-
-@media (min-width: 600px) {
-  main .hero .right-box {
-    display: none;
-  }
 }
 
 @media (min-width: 900px) {
