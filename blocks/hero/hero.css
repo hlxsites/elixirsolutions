@@ -2,6 +2,8 @@
 main .hero-container {
   --hero-bg-color: var(--clr-blue);
   --hero-cicle-color: var(--clr-light-blue); 
+
+  padding: 0;
 }
 
 main .hero-container.alternate-hero {
@@ -11,10 +13,6 @@ main .hero-container.alternate-hero {
 
 main .hero-container > div {
   max-width: unset;
-}
-  
-main .hero-container {
-  padding: 0;
 }
   
 main .hero {
