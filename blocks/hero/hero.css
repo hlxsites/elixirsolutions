@@ -17,8 +17,8 @@ main .hero {
   margin: auto;
 }
 
-main .hero .left-box {
-  background: #024c99;
+main .hero .hero-content-container {
+  background: var(--clr-blue);
   min-height: 400px;
   display: flex;
   flex: 1;
@@ -27,45 +27,44 @@ main .hero .left-box {
   position: relative;
 }
 
-main .hero .right-box {
+main .hero .hero-image-container {
   flex: 1;
   display: none;
 }
 
-main .hero .left-box .bg-circle-1 {
-  background: #4179b3;
+main .hero .hero-content-container .bg-circle {
+  background: var(--clr-light-blue); 
   display: block;
   position: absolute;
+  opacity: .4;
+}
+
+main .hero .hero-content-container .bg-circle-1 {
   width: 390px;
   height: 390px;
   right: -90px;
   top: -210px;
   border-radius: 195px;
-  opacity: .4;
 }
 
-main .hero .left-box .bg-circle-2 {
-  background: #4179b3;
-  display: block;
-  position: absolute;
+main .hero .hero-content-container .bg-circle-2 {
   width: 220px;
   height: 220px;
   left: -110px;
   bottom: 40px;
   border-radius: 110px;
-  opacity: .4;
 }
 
 main .hero h1 {
-  color: white;
+  color: var(--clr-white);
   margin-right: auto;
   padding: 48px;
   z-index: 1;
 }
 
 main .hero h2 {
-  color: white;
-  padding: 0 24px 48px 48px !important;
+  color: var(--clr-white);
+  padding: 0 24px 48px 48px;
   z-index: 1;
 }
 
@@ -80,7 +79,7 @@ main .hero img {
 }
 
 main .hero .button {
-  background-color: white;
+  background-color: var(--clr-white);
   color: var(--link-color);
   margin: auto 48px 40px 56px;
   width: 278px;
@@ -90,7 +89,7 @@ main .hero .button {
 }
 
 @media (min-width: 900px) {
-  main .hero .right-box {
+  main .hero .hero-image-container {
     display: block;
   }
 }
