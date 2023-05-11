@@ -1,0 +1,14 @@
+main > .breadcrumb-container {
+  padding: 10px;
+}
+
+.breadcrumb > div {
+  color: var(--link-color);
+  font-size: var(--body-font-size-xs);
+  padding-left: 10px;
+  min-height: 26px;
+}
+
+.breadcrumb > div a {
+  text-decoration: none;
+}

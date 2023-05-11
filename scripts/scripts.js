@@ -39,12 +39,27 @@ function buildHeroBlock(main) {
 }
 
 /**
+ * Builds breadcrumb block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
+function buildBreadcrumbBlock(main) {
+  const title = document.querySelector('head title');
+
+  if (title.innerText !== 'Elixir-Home' && window.isErrorPage !== true) {
+    const section = document.createElement('div');
+    section.append(buildBlock('breadcrumb', { elems: [] }));
+    main.prepend(section);
+  }
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildBreadcrumbBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
