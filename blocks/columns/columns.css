@@ -114,7 +114,8 @@
   margin: 0 auto;
 }
 
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble {
+.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble {
+  display: block;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -123,7 +124,7 @@
   z-index: 10;
 }
 
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble.style-a {
+.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-a {
   background: #f6a75c;
   width: 40px;
   height: 40px;
@@ -131,7 +132,7 @@
   left: 0;
 }
 
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble.style-b {
+.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
   background: #479dc7;
   width: 60px;
   height: 60px;
@@ -139,7 +140,7 @@
   left: 5%;
 }
 
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble.style-c {
+.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-c {
   background: #a0cd40;
   width: 140px;
   height: 140px;
@@ -147,7 +148,7 @@
   right: -15%;
 }
 
-.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble.style-a {
+.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-a {
   background: #dfeebf;
   width: 141px;
   height: 141px;
@@ -157,7 +158,7 @@
   opacity: unset;
 }
 
-.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble.style-b {
+.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
   background: #e1654f;
   width: 36px;
   height: 36px;
@@ -165,7 +166,7 @@
   left: 0;
 }
 
-.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper i.bubble.style-c {
+.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-c {
   background: #40c1bc;
   width: 82px;
   height: 82px;

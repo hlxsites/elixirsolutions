@@ -26,8 +26,9 @@ export default function decorate(block) {
           const teaserWrapper = document.createElement('div');
           teaserWrapper.classList.add('teaser-wrapper');
           ['style-a', 'style-b', 'style-c'].forEach((style) => {
-            const bubble = document.createElement('i');
+            const bubble = document.createElement('span');
             bubble.classList.add('bubble', style);
+            bubble.ariaHidden = true;
             teaserWrapper.appendChild(bubble);
           });
           teaserWrapper.appendChild(pic);

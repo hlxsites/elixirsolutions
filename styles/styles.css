@@ -250,7 +250,7 @@ main img {
 
 /* Sections */
 main .section {
-  padding: 15px;
+  padding: 16px;
 }
 
 @media(min-width: 900px) {
