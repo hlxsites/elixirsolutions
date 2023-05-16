@@ -86,6 +86,19 @@ function buildBreadcrumbBlock(main) {
 }
 
 /**
+ * Builds blog topics blocks from default content
+ * @param {Element} main The container element
+ */
+function buildBlogTopicsBlock(main) {
+  const blogFeed = main.querySelector('.blog-feed:not(.mini)');
+  if (blogFeed) {
+    const section = blogFeed.parentNode.closest('div');
+    const block = buildBlock('blog-topics', '');
+    section.append(block);
+  }
+}
+
+/**
  * Builds accordion blocks from default content
  * @param {Element} main The container element
  */
@@ -124,6 +137,7 @@ function buildAutoBlocks(main) {
     buildNewsColumns(main);
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
+    buildBlogTopicsBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
