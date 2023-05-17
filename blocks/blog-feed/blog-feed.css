@@ -1,3 +1,15 @@
+main .blog-feed-container {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+@media (min-width: 900px) {
+  main .blog-feed-container {
+    grid-row: 2;
+    grid-column: 1 / span 1;
+  }
+}
+
 main .blog-feed {
   min-height: 100vh;
 }
@@ -9,7 +21,6 @@ main .blog-feed ul.blog-list {
   grid-template-columns: repeat(var(--blog-feed-cols), minmax(0, 1fr));
   gap: 2rem;
   list-style: none;
-  
 }
 
 @media (min-width: 600px) {

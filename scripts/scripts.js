@@ -50,7 +50,7 @@ function buildNewsColumns(main) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  if (document.body.classList.contains('news')) {
+  if (document.body.classList.contains('news') || document.body.classList.contains('blog')) {
     return;
   }
 
@@ -92,9 +92,17 @@ function buildBreadcrumbBlock(main) {
 function buildBlogTopicsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (blogFeed) {
-    const section = blogFeed.parentNode.closest('div');
+    // const section = blogFeed.parentNode.closest('div');
+    // const block = buildBlock('blog-topics', '');
+    // section.append(block);
+
+    const section = document.createElement('div');
     const block = buildBlock('blog-topics', '');
     section.append(block);
+    main.append(section);
+  } else if (document.body.classList.contains('blog')) {
+    const section = main.querySelector('main > div:last-child');
+    section.prepend(buildBlock('blog-topics', ''));
   }
 }
 

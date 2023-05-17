@@ -309,3 +309,17 @@ main .section.highlight .section-container {
 	width: 1px !important;
 	white-space: nowrap !important;            
 }
+
+/* blog */
+.blog main {
+  display: grid;
+  grid-template-columns: auto;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .blog main {
+    grid-template-columns: auto 370px;
+  }
+}

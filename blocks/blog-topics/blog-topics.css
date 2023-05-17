@@ -1,6 +1,13 @@
-main .blog-topics-container > div {
-  display: grid;
-  grid-template-columns: auto;
+main .blog-topics-container {
+  grid-row: 3;
+  grid-column: 1;
+}
+
+@media (min-width: 900px) {
+  main .blog-topics-container {
+    grid-row: 2;
+    grid-column: 2 / span 1;
+  }
 }
 
 main .blog-topics .blog-topics-header {
@@ -44,10 +51,4 @@ main .blog-topics ul li a::before {
   background-repeat: no-repeat;
   width: 10px;
   height: 10px;
-}
-
-@media (min-width: 900px) {
-  main .blog-topics-container > div {
-    grid-template-columns: auto 320px;
-  }
 }
