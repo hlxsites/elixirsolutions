@@ -77,8 +77,10 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
   const limit = 10;
   const offset = pageNum * limit;
   let morePages = false;
+  const usp = new URLSearchParams(window.location.search);
+  const tag = usp.get('tag');
   const blogPosts = ffetch('/query-index.json')
-    .filter((p) => p.path.startsWith('/blog/'))
+    .filter((p) => p.path.startsWith('/blog/') && p.tags.includes(tag))
     .slice(offset, offset + limit + 1);
 
   let i = 0;

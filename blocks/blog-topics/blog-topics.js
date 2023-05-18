@@ -32,20 +32,6 @@ const renderTopics = (ul, topicCount) => {
   });
 };
 
-const renderBlogPost = () => {
-  // const heroContainer = document.querySelector('.hero-container');
-  // const tableContainer = document.querySelector('.table-container');
-  // const content = document.createElement('div');
-  // content.classList.add('blog-content');
-  // content.appendChild(heroContainer);
-  // content.appendChild(tableContainer);
-
-  // // const blogTopicsContainer = document.querySelector('.blogTopics-container');
-
-  // const main = document.querySelector('main');
-  // main.appendChild(content);
-};
-
 export default async function decorate(block) {
   const topicCount = await getTopicCount();
 
@@ -57,6 +43,4 @@ export default async function decorate(block) {
   const ul = document.createElement('ul');
   block.appendChild(ul);
   renderTopics(ul, topicCount);
-
-  renderBlogPost();
 }
