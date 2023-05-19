@@ -25,6 +25,7 @@ main .hero-container select {
   height: 40px;
   margin: 0 48px 24px;
   padding: 0 8px;
+  width: 100%;
   border: 1px solid var(--clr-light-blue);
   border-radius: 3px;
   font-size: 16px;
@@ -32,11 +33,16 @@ main .hero-container select {
   appearance: none;
 }
 
-main .hero-container select::after {
-  content: '';
+main .hero-container .hero-select-wrapper {
+  width: 70%;
+  position: relative;
+}
+
+main .hero-container .hero-select-wrapper::after {
+  content: "";
   position: absolute;
-  top: 50%;
-  right: 16px;
+  top: 20px;
+  right: -36px;
   width: 9px;
   height: 7px;
   margin-top: -3px;
@@ -129,14 +135,22 @@ main .hero .button {
   background-color: var(--clr-white);
   color: var(--link-color);
   margin: auto 48px 40px;
-  width: 278px;
-  font-size: 24px;
+  width: 200px;
+  font-size: 16px;
   z-index: 2;
   transition: .3s;
+  position: relative;
 }
+
 
 @media (min-width: 900px) {
   main .hero .hero-image-container {
     display: block;
   }
+
+  main .hero .button {
+    width: 278px;
+    font-size: 24px;
+  }
+
 }
