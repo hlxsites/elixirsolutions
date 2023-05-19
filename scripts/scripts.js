@@ -64,9 +64,11 @@ function buildHeroBlock(main) {
   const h2 = section.querySelector('h2');
   const picture = section.querySelector('picture');
   const cta = section.querySelector('a');
+  const list = section.querySelector('ul');
+  const listButton = section.querySelector('.button-container');
 
   if (picture) {
-    section.append(buildBlock('hero', { elems: [h1, h2, picture, cta] }));
+    section.append(buildBlock('hero', { elems: [h1, h2, picture, cta, list, listButton] }));
     main.prepend(section);
   }
 }

@@ -1,7 +1,7 @@
 /* block specific CSS goes here */
 main .hero-container {
   --hero-bg-color: var(--clr-blue);
-  --hero-cicle-color: var(--clr-light-blue); 
+  --hero-cicle-color: var(--clr-light-blue);
 
   padding: 0;
 }
@@ -13,6 +13,44 @@ main .hero-container.alternate-hero {
 
 main .hero-container > div {
   max-width: unset;
+}
+
+main .hero-container ul li {
+  list-style-type: none;
+  color: var(--clr-white);
+  font-family: var(--heading-font-family);
+}
+
+main .hero-container select {
+  height: 40px;
+  margin: 0 48px 24px;
+  padding: 0 8px;
+  border: 1px solid var(--clr-light-blue);
+  border-radius: 3px;
+  font-size: 16px;
+  display: block;
+  appearance: none;
+}
+
+main .hero-container select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 9px;
+  height: 7px;
+  margin-top: -3px;
+  background: url("/icons/down-arrow.png") no-repeat;
+  background-size: contain; 
+}
+
+main .hero-container h5 {
+  color: var(--clr-white);
+  margin: 0 48px 4px;
+}
+
+main .hero-container .default-content-wrapper {
+  display: none;
 }
   
 main .hero {
@@ -90,7 +128,7 @@ main .hero img {
 main .hero .button {
   background-color: var(--clr-white);
   color: var(--link-color);
-  margin: auto 48px 40px 56px;
+  margin: auto 48px 40px;
   width: 278px;
   font-size: 24px;
   z-index: 2;
