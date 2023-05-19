@@ -29,7 +29,7 @@ export function addDropdown(contentBox) {
 
   // add an event listener to the dropdown to redirect to the selected link
   selectEl.addEventListener('change', () => {
-    const selectedOption = this.value;
+    const selectedOption = selectEl.value;
     btn.href = selectedOption;
   });
 

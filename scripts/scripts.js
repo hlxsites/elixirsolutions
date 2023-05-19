@@ -47,6 +47,9 @@ function buildNewsColumns(main) {
 
 /**
  * Builds hero block and prepends to main in a new section.
+ * A Hero block is only displayed is there's at least
+ *   1. an H1 title
+ *   2. a picture
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
@@ -60,17 +63,14 @@ function buildHeroBlock(main) {
   }
 
   const section = h1.closest('div');
-
-  const h2 = section.querySelector('h2');
   const picture = section.querySelector('picture');
-  const cta = section.querySelector('a');
-  const list = section.querySelector('ul');
-  const listButton = section.querySelector('.button-container');
-
-  if (picture) {
-    section.append(buildBlock('hero', { elems: [h1, h2, picture, cta, list, listButton] }));
-    main.prepend(section);
+  if (!picture) {
+    return;
   }
+
+  const elems = [...section.childNodes];
+  section.append(buildBlock('hero', { elems }));
+  main.prepend(section);
 }
 
 /**
