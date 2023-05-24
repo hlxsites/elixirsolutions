@@ -1,0 +1,57 @@
+main .registration-form {
+    max-width: var(--max-content-width);
+    margin: auto;
+    position: relative;
+    padding: 32px;
+}
+main .registration-form .registration-form-step {
+  display: flex;
+  width: 100%;
+}
+
+main .registration-form .registration-form-step .form-container {
+  display: flex;
+  flex: 1;
+}
+
+main .registration-form .registration-form-step .form-container h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+main .registration-form .registration-form-step .form-container button {
+  font-weight: bold;
+  width: auto;
+  min-width: 68px;
+}
+
+main .registration-form .registration-form-step .image-container {
+    display: flex;
+    flex: 1;
+}
+
+main .registration-form .registration-form-step .image-container p {
+    margin-block: -6px;
+}
+
+main .registration-form .registration-form-step .image-container p:last-child {
+    background: #002250;
+    padding: 15px 25px;
+    color: #fff;
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+@media (min-width: 900px) {
+    main .registration-form .registration-form-step .form-container {
+        flex-direction: column;
+    }
+
+    main .registration-form .registration-form-step .image-container {
+        flex-direction: column;
+    }
+}
+
