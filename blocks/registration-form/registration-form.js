@@ -38,7 +38,7 @@ function buildStep1(rows) {
   return step1Container;
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const RXBIN_REGISTRY = '/register-login/register-login.json';
   //   const GROUP_REGISTRY = '/register-login.json?sheet=groups';
   // expect three rows
@@ -49,6 +49,5 @@ export default function decorate(block) {
   }
   // TODO: depending on query params, set the correct step
   block.append(buildStep1(rows));
-  rxbinData = ffetch(RXBIN_REGISTRY);
-  console.log(rxbinData);
+  rxbinData = await ffetch(RXBIN_REGISTRY).all();
 }
