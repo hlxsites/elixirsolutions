@@ -11,10 +11,50 @@ import {
   loadBlocks,
   loadCSS,
   decorateBlock,
+  getMetadata,
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
+
+/**
+ * create an element.
+ * @param {string} tagName the tag for the element
+ * @param {string|Array<string>} classes classes to apply
+ * @param {object} props properties to apply
+ * @param {string|Element} html content to add
+ * @returns the element
+ */
+export function createElement(tagName, classes, props, html) {
+  const elem = document.createElement(tagName);
+  if (classes) {
+    const classesArr = (typeof classes === 'string') ? [classes] : classes;
+    elem.classList.add(...classesArr);
+  }
+  if (props) {
+    Object.keys(props).forEach((propName) => {
+      elem.setAttribute(propName, props[propName]);
+    });
+  }
+
+  if (html) {
+    const appendEl = (el) => {
+      if (el instanceof HTMLElement || el instanceof SVGElement) {
+        elem.append(el);
+      } else {
+        elem.insertAdjacentHTML('beforeend', el);
+      }
+    };
+
+    if (Array.isArray(html)) {
+      html.forEach(appendEl);
+    } else {
+      appendEl(html);
+    }
+  }
+
+  return elem;
+}
 
 function buildNewsColumns(main) {
   if (!document.body.classList.contains('news')) {
@@ -80,10 +120,8 @@ function buildHeroBlock(main) {
  * @param {Element} main The container element
  */
 function buildBreadcrumbBlock(main) {
-  const title = document.querySelector('head title');
-
-  if (title.innerText !== 'Elixir-Home' && window.isErrorPage !== true) {
-    const section = document.createElement('div');
+  if (window.location.pathname !== '/' && window.isErrorPage !== true && !getMetadata('hideBreadcrumb')) {
+    const section = createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
   }
@@ -96,7 +134,7 @@ function buildBreadcrumbBlock(main) {
 function buildBlogTopicsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (blogFeed) {
-    const section = document.createElement('div');
+    const section = createElement('div');
     const block = buildBlock('blog-topics', '');
     section.append(block);
     main.append(section);
@@ -113,7 +151,7 @@ function buildBlogTopicsBlock(main) {
 function buildBlogSocialsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (!blogFeed && document.body.classList.contains('blog')) {
-    const section = document.createElement('div');
+    const section = createElement('div');
     section.append(buildBlock('blog-socials', ''));
     main.append(section);
   }
@@ -129,7 +167,7 @@ function buildAccordions(main) {
     const contentWrappers = accordion.querySelectorAll(':scope > div');
     const blockTable = [];
     let row;
-    const newWrapper = document.createElement('div');
+    const newWrapper = createElement('div');
     contentWrappers.forEach((wrapper) => {
       [...wrapper.children].forEach((child) => {
         if (child.nodeName === 'H2') {
@@ -177,8 +215,7 @@ function buildAutoBlocks(main) {
  */
 function decorateSectionsExt(main) {
   main.querySelectorAll('.section').forEach((section) => {
-    const container = document.createElement('div');
-    container.classList.add('section-container');
+    const container = createElement('div', 'section-container');
     [...section.children].forEach((child) => container.append(child));
     section.append(container);
   });
@@ -194,6 +231,30 @@ export function decorateBlocks(main) {
     .forEach(decorateBlock);
 }
 
+export default function decorateBlogImage(main) {
+  if (!document.body.classList.contains('blog')) return;
+  main
+    .querySelectorAll('.default-content-wrapper picture')
+    .forEach((pic, i) => {
+      const parent = pic.parentNode;
+      if (i === 0) return; // hero image
+
+      const textContent = parent.innerText.replaceAll('\n', '').trim();
+      // inline image
+      if (textContent.length !== 0 || parent.children.length > 1) {
+        parent.classList.add('blog-img-inline');
+        const link = pic.nextSibling;
+        // inline image with link (wrap image in link)
+        if (link && link.tagName === 'A' && link.textContent.includes(link.getAttribute('href'))) {
+          link.innerHTML = pic.outerHTML;
+          pic.replaceWith(link);
+        }
+      } else if (textContent.length === 0 && parent.children.length === 1) {
+        parent.classList.add('blog-img-center');
+      }
+    });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -207,6 +268,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateSectionsExt(main);
   decorateBlocks(main);
+  decorateBlogImage(main);
   buildAccordions(main);
 }
 
@@ -230,10 +292,12 @@ async function loadEager(doc) {
  * @param {string} href The favicon URL
  */
 export function addFavIcon(href) {
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/x-icon';
-  link.href = href;
+  const link = createElement('link', '', {
+    rel: 'icon',
+    type: 'image/x-icon',
+    href,
+  });
+
   const existingLink = document.querySelector('head link[rel="icon"]');
   if (existingLink) {
     existingLink.parentElement.replaceChild(link, existingLink);
@@ -283,7 +347,7 @@ export function wrapImgsInLinks(container) {
     if (link && link.textContent.includes(link.getAttribute('href'))) {
       link.parentElement.remove();
       link.innerHTML = pic.outerHTML;
-      parent.replaceWith(link);
+      pic.replaceWith(link);
     }
   });
 }

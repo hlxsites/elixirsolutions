@@ -1,5 +1,7 @@
+import { createElement } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
-  const topics = document.createElement('div');
+  const topics = createElement('div');
   const tags = document.querySelectorAll('head meta[property="article:tag"]');
   topics.append('Topics: ');
   const tagLinks = [];
@@ -10,8 +12,7 @@ export default function decorate(block) {
   </p>`;
   block.append(topics);
 
-  const socials = document.createElement('div');
-  const html = `
+  const socials = createElement('div', '', {}, `
     <div>
       <a href="http://www.facebook.com/share.php?u=${window.location.href}&amp;utm_medium=social&amp;utm_source=facebook" rel="noopener">
         <img src="/blocks/blog-socials/images/facebook.png" alt="Share on facebook">
@@ -28,7 +29,6 @@ export default function decorate(block) {
       <a href="javascript:window.print()" rel="noopener">
         <img src="/blocks/blog-socials/images/print.png" alt="Share on print">
       </a>
-    </div>`;
-  socials.innerHTML = html;
+    </div>`);
   block.append(socials);
 }

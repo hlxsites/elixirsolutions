@@ -1,8 +1,12 @@
 const getPageTitle = async (url) => {
   const resp = await fetch(url);
-  const html = document.createElement('div');
-  html.innerHTML = await resp.text();
-  return html.querySelector('title').innerText;
+  if (resp.ok) {
+    const html = document.createElement('div');
+    html.innerHTML = await resp.text();
+    return html.querySelector('title').innerText;
+  }
+
+  return '';
 };
 
 const getAllPathsExceptCurrent = async (paths) => {
@@ -16,7 +20,9 @@ const getAllPathsExceptCurrent = async (paths) => {
     const url = `${window.location.origin}${path}`;
     /* eslint-disable-next-line no-await-in-loop */
     const name = await getPageTitle(url);
-    result.push({ path, name, url });
+    if (name) {
+      result.push({ path, name, url });
+    }
   }
   return result;
 };

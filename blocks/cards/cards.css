@@ -7,6 +7,10 @@
   .cards {
     --num-cols: 2;
   }
+
+  .cards.teaser {
+    --num-cols: 1;
+  }
 }
 
 @media (min-width: 900px) {
@@ -16,6 +20,10 @@
   
   .cards.cards-four-up {
     --num-cols: 4;
+  }
+
+  .cards.teaser {
+    --num-cols: 2;
   }
 }
 
@@ -93,4 +101,37 @@ main .section.highlight.cards-container .default-content-wrapper h3 {
 
 main .section.highlight .cards {
   --headline-color: var(--clr-midnight-blue);
+}
+
+/* teaser cards */
+.cards.teaser .card-link-wrapper {
+  display: grid;
+  grid-template-rows: 200px 1fr;
+  gap: 2rem;
+}
+
+.cards.teaser > ul > li img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.cards.teaser > ul > li .cards-card-image {
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .cards.teaser .card-link-wrapper {
+    grid-template-rows: 1fr;
+    grid-template-columns: 200px 1fr;
+  }
+
+  .cards.teaser > ul > li img {
+    height: auto;
+    width: 100%;
+  }
+
+  .cards.teaser > ul > li {
+    max-width: 550px;
+  }
 }

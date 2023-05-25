@@ -8,19 +8,19 @@ main .blog-cta {
   text-align: center;
 }
 
-main .blog-cta p:not(.button-container) {
-  text-align: center;
+main .blog-cta a {
+  text-decoration: underline;
 }
 
 main .blog-cta .button {
   background-color: var(--clr-green);
   font-size: var(--body-font-size-s);
-  border-radius: unset;
-  padding: 5px 40px;
+  border-radius: 10px;
+  padding: 10px 35px;
+  margin: 0 auto;
 }
 
-@media (min-width: 900px) {
-  main .blog-cta p:not(.button-container) {
-    text-align: left;
-  }
+main .blog-cta .button-container {
+  padding: 0;
+  margin: 0;  
 }

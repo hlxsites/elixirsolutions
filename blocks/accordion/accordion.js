@@ -3,6 +3,7 @@ import {
   decorateBlock,
   loadBlock,
 } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 const toggle = (item) => {
   const trigger = item.querySelector('.accordion-trigger');
@@ -60,15 +61,11 @@ export default async function decorate(block) {
     row.prepend(header);
     const headerText = header.textContent;
     header.innerHTML = '';
-    const button = document.createElement('button');
-    button.classList.add('accordion-trigger');
-    button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-controls', `accordion-panel-${block.dataset.accordionIndex}-${i}`);
-    button.setAttribute('id', `accordion-${block.dataset.accordionIndex}-${i}`);
-    const title = document.createElement('span');
-    title.classList.add('accordion-title');
-    title.textContent = headerText;
-    button.append(title);
+    const button = createElement('button', 'accordion-trigger', {
+      'aria-expanded': 'false',
+      'aria-controls': `accordion-panel-${block.dataset.accordionIndex}-${i}`,
+      id: `accordion-${block.dataset.accordionIndex}-${i}`,
+    }, createElement('span', 'accordion-title', {}, headerText));
     header.append(button);
     panel.classList.add('accordion-panel');
     panel.setAttribute('id', `accordion-panel-${block.dataset.accordionIndex}-${i}`);

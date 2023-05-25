@@ -1,14 +1,12 @@
 import ffetch from '../../scripts/ffetch.js';
 import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 function buildPost(post, eager) {
-  const postCard = document.createElement('div');
-  postCard.classList.add('news-card');
-
   const description = post.content.querySelector('h1 + p');
   const title = post.content.querySelector('h1').textContent;
 
-  postCard.innerHTML = `
+  const postCard = createElement('div', 'news-card', {}, `
       <div class="news-image">
         <a href="${post.path}">${createOptimizedPicture(post.image, `Teaser image for ${title}`, eager).outerHTML}</a>
       </div>
@@ -20,7 +18,7 @@ function buildPost(post, eager) {
         </a>
       </div>
     </a>
-  `;
+  `);
 
   return postCard;
 }
@@ -35,7 +33,7 @@ async function buildNewsFeed(ul, pageNum, pagesElem) {
     .follow('path', 'content');
 
   let i = 0;
-  const newUl = document.createElement('ul');
+  const newUl = createElement('ul');
   // eslint-disable-next-line no-restricted-syntax
   for await (const post of newsFeed) {
     if (i >= limit) {
@@ -44,7 +42,7 @@ async function buildNewsFeed(ul, pageNum, pagesElem) {
       break;
     }
 
-    const li = document.createElement('li');
+    const li = createElement('li');
     li.append(buildPost(post, i < 1));
     newUl.append(li);
 
@@ -90,12 +88,10 @@ export default function decorate(block) {
   const observer = new IntersectionObserver(async (entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       observer.disconnect();
-      const ul = document.createElement('ul');
-      ul.classList.add('news-list');
+      const ul = createElement('ul', 'news-list');
       block.append(ul);
 
-      const pagesElem = document.createElement('div');
-      pagesElem.classList.add('news-pages');
+      const pagesElem = createElement('div', 'news-pages');
       block.append(pagesElem);
 
       const usp = new URLSearchParams(window.location.search);

@@ -53,6 +53,8 @@
   /* misc. */
   --nav-height: 80px;
   --max-content-width: 1440px;
+  --default-content-padding-x: 48px;
+  --default-content-padding-y: 16px;
 }
 
 @media (min-width: 900px) {
@@ -282,7 +284,7 @@ main .section {
 }
 
 main .section .default-content-wrapper {
-  padding: 16px 48px;
+  padding: var(--default-content-padding-y) var(--default-content-padding-x);
 }
 
 main .section .section-container {
@@ -339,8 +341,27 @@ main .section.highlight .section-container {
   margin: 0 auto;
 }
 
+.blog main .default-content-wrapper :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--clr-near-black);
+  padding: 8px 0;
+}
+.blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
+.blog main .default-content-wrapper h2 { font-size: var(--heading-font-size-l) }
+.blog main .default-content-wrapper h3 { font-size: var(--heading-font-size-m) }
+.blog main .default-content-wrapper h4 { font-size: var(--heading-font-size-m) }
+.blog main .default-content-wrapper h5 { font-size: var(--heading-font-size-xs) }
+.blog main .default-content-wrapper h6 { font-size: var(--heading-font-size-xs) }
+
 .blog main .section {
   padding: 0 16px;
+}
+
+.blog main .default-content-wrapper strong {
+  color: #666;
+}
+
+.blog main .default-content-wrapper p:first-child picture img {
+  border-radius: 5px;
 }
 
 @media (min-width: 900px) {
@@ -351,4 +372,49 @@ main .section.highlight .section-container {
   .blog main .section {
     padding: 0 32px;
   }
+}
+
+.blog main .default-content-wrapper {
+  padding: 0 var(--default-content-padding-x);
+}
+
+.blog main .default-content-wrapper p picture {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.blog main .default-content-wrapper ol {
+  padding-left: 50px;
+  margin: 10px 0;
+}
+
+.blog main .default-content-wrapper ul {
+  list-style: none;
+  padding-left: 10px;
+  margin: 10px 0;
+}
+
+.blog main .default-content-wrapper li {
+  margin-bottom: 25px;
+}
+
+.blog main .default-content-wrapper ul li::before {
+  content: '';
+  display: inline-block;
+  background-image: url('/icons/angle-right-solid.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+}
+
+.blog main .default-content-wrapper .blog-img-center {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.blog main .default-content-wrapper .blog-img-inline picture {
+  float: right;
+  margin: 0 20px;
 }

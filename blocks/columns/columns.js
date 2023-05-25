@@ -1,3 +1,5 @@
+import { createElement } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
@@ -23,12 +25,11 @@ export default function decorate(block) {
         }
 
         if (isTeaser) {
-          const teaserWrapper = document.createElement('div');
-          teaserWrapper.classList.add('teaser-wrapper');
+          const teaserWrapper = createElement('div', 'teaser-wrapper');
           ['style-a', 'style-b', 'style-c'].forEach((style) => {
-            const bubble = document.createElement('span');
-            bubble.classList.add('bubble', style);
-            bubble.ariaHidden = true;
+            const bubble = createElement('span', ['bubble', style], {
+              'aria-hidden': 'true',
+            });
             teaserWrapper.appendChild(bubble);
           });
           teaserWrapper.appendChild(pic);
