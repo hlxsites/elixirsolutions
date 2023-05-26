@@ -6,11 +6,11 @@ main .registration-form {
 }
 main .registration-form .registration-form-step {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
 main .registration-form .registration-form-step .form-container {
-  display: flex;
   flex: 1;
 }
 
@@ -21,12 +21,55 @@ main .registration-form .registration-form-step .form-container h3 {
 
 main .registration-form .registration-form-step .form-container button {
   font-weight: bold;
-  width: auto;
+  width: 20%;
   min-width: 68px;
+  color: var(--clr-white);
+}
+
+main .registration-form .registration-form-step .form-container .registration-form-input-tooltip {
+    border: 1px solid #777;
+    text-decoration: none;
+    border-radius: 2px;
+    width: 22%;
+    padding: 8px;
+    padding-left: 40px;
+    margin-top: 20px;
+    margin-left: 12%;
+    position: absolute;
+    z-index: 1;
+    color: #555;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    transform: translateY(-50%);
+    background-color: var(--clr-white);
+}
+
+main .registration-form .registration-form-step .form-container .registration-form-input-tooltip::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 12px;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: var(--clr-black);
+}
+
+main .registration-form .registration-form-step .form-container .registration-form-input-tooltip::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 13px;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: var(--clr-white);
 }
 
 main .registration-form .registration-form-step .image-container {
-    display: flex;
     flex: 1;
 }
 
@@ -46,12 +89,8 @@ main .registration-form .registration-form-step .image-container p:last-child {
 }
 
 @media (min-width: 900px) {
-    main .registration-form .registration-form-step .form-container {
-        flex-direction: column;
-    }
-
-    main .registration-form .registration-form-step .image-container {
-        flex-direction: column;
+    main .registration-form .registration-form-step  {
+        flex-direction: row;
     }
 }
 
