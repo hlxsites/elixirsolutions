@@ -343,7 +343,25 @@ main .section.highlight .section-container {
 
 .blog main .section {
   grid-column: 1;
-  padding: 0 16px;
+  padding: 0;
+}
+
+.blog main :not(.breadcrumb-container):not(.blog-topics-container):not(.blog-cta-container) .section-container > * {
+  padding: var(--default-content-padding-y) 20px;
+}
+
+@media (min-width: 900px) {
+  .blog main {
+    grid-template-columns: auto 370px;
+  }
+
+  .blog main .section {
+    padding: 0 32px;
+  }
+
+  .blog main :not(.breadcrumb-container):not(.blog-topics-container):not(.blog-cta-container) .section-container > * {
+    padding: var(--default-content-padding-y) var(--default-content-padding-x);
+  }
 }
 
 .blog main :not(.highlight) .section-container :is(h1, h2, h3, h4, h5, h6) {
@@ -377,20 +395,6 @@ main .section.highlight .section-container {
 
 .blog main .default-content-wrapper p:first-child picture img {
   border-radius: 5px;
-}
-
-@media (min-width: 900px) {
-  .blog main {
-    grid-template-columns: auto 370px;
-  }
-
-  .blog main .section {
-    padding: 0 32px;
-  }
-}
-
-.blog main :not(.blog-topics-container):not(.blog-cta-container) .section-container > {
-  padding: 0 var(--default-content-padding-x);
 }
 
 .blog main .default-content-wrapper p picture {
