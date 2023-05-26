@@ -389,7 +389,7 @@ main .section.highlight .section-container {
   }
 }
 
-.blog main .default-content-wrapper {
+.blog main :not(.blog-topics-container):not(.blog-cta-container) .section-container > {
   padding: 0 var(--default-content-padding-x);
 }
 
