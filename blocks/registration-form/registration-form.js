@@ -44,7 +44,7 @@ function buildStep1(rows) {
     // }
     const rxItems = await ffetch(RXBIN_REGISTRY).all();
     const rxItem = rxItems.filter((rx) => rx['Rx Bin'] === rxInput).pop();
-    if (rxItem === null) {
+    if (rxItem === null || typeof (rxItem) === 'undefined') {
       textBoxTooltip.innerText = 'Please provide a valid Rx Bin Number.';
       textBoxTooltip.style.visibility = 'visible';
       textBoxTooltip.style.opacity = 1;
