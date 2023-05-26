@@ -4,6 +4,7 @@ main .registration-form {
     position: relative;
     padding: 32px;
 }
+
 main .registration-form .registration-form-step {
   display: flex;
   flex-direction: column;
