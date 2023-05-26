@@ -47,7 +47,7 @@
 .table thead th {
   font-size: var(--body-font-size-xs);
   font-weight: bold;
-  color: #FFFFFF;
+  color: var(--clr-white);
 }
 
 /* styles */
@@ -60,6 +60,6 @@
   background: #D0E4F5;
 }
 
-.table.bordered td, .table.bordered th{
-  border: 1px solid #AAAAAA;
+.table.bordered td, .table.bordered th {
+  border: 1px solid #AAA;
 }

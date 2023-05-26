@@ -346,7 +346,7 @@ main .section.highlight .section-container {
   padding: 0;
 }
 
-.blog main :not(.breadcrumb-container):not(.blog-topics-container):not(.blog-cta-container) .section-container > * {
+.blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
   padding: var(--default-content-padding-y) 20px;
 }
 
@@ -359,7 +359,7 @@ main .section.highlight .section-container {
     padding: 0 32px;
   }
 
-  .blog main :not(.breadcrumb-container):not(.blog-topics-container):not(.blog-cta-container) .section-container > * {
+  .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
     padding: var(--default-content-padding-y) var(--default-content-padding-x);
   }
 }
