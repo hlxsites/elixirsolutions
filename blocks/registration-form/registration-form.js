@@ -2,9 +2,73 @@ import ffetch from '../../scripts/ffetch.js';
 import { createElement } from '../../scripts/scripts.js';
 
 const RXBIN_REGISTRY = '/register-login/register-login.json';
-//   const GROUP_REGISTRY = '/register-login.json?sheet=groups';
+const GROUP_REGISTRY = '/register-login/register-login.json';
 
-function buildStep1(rows) {
+function buildStep2(rows, block) {
+  block.append(rows[1]);
+  const cols = [...rows[1].children];
+
+  // 0. step1 container
+  const stepContainer = createElement('div', 'registration-form-step');
+  // 1. build the form
+  const formContainer = createElement('div', 'form-container');
+  formContainer.append(cols[0]);
+  stepContainer.append(formContainer);
+  // add form input
+  const textBox = createElement('input', 'registration-form-input', {
+    required: true,
+    placeholder: 'e.g. 012718',
+  });
+  formContainer.append(textBox);
+
+  const textBoxTooltipContainers = createElement('div');
+  const textBoxTooltip = createElement('span', 'registration-form-input-tooltip');
+  textBoxTooltip.innerText = '';
+  formContainer.append(textBoxTooltipContainers);
+  textBoxTooltipContainers.append(textBoxTooltip);
+
+  // add button
+  const searchBtn = createElement('button', 'button', {
+    type: 'submit',
+  });
+  searchBtn.innerText = 'Search';
+  formContainer.append(searchBtn);
+
+  searchBtn.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const grpInput = textBox.value.toLowerCase();
+
+    const grpItems = await ffetch(GROUP_REGISTRY).sheet('groups').chunks(1000).all();
+    // {
+    //   Group Id: "106110T80902",
+    //   URL: "https://www.elixirsolutions.com/new-plans"
+    // }
+    const grpItem = grpItems.filter((rx) => rx['Group Id'].toLowerCase() === grpInput).pop();
+    if (grpItem === null || typeof (grpItem) === 'undefined') {
+      textBoxTooltip.innerText = 'Please provide a valid Group Number.';
+      textBoxTooltip.style.visibility = 'visible';
+      textBoxTooltip.style.opacity = 1;
+      // Hide the tooltip after 5 seconds
+      setTimeout(() => {
+        textBoxTooltip.style.opacity = 0;
+      }, 5000);
+      return;
+    }
+    // grpItem was found
+    const url = grpItem.URL;
+    // follow the URL
+    window.open(url, '_blank');
+  });
+
+  // 2. show the image on the right
+  const imageContainer = createElement('div', 'image-container');
+  imageContainer.append(cols[1]);
+  stepContainer.append(imageContainer);
+
+  block.append(stepContainer);
+}
+
+function buildStep1(rows, block) {
   rows[1].remove();
   rows[2].remove();
   const cols = [...rows[0].children];
@@ -23,7 +87,7 @@ function buildStep1(rows) {
 
   const textBoxTooltipContainers = createElement('div');
   const textBoxTooltip = createElement('span', 'registration-form-input-tooltip');
-  textBoxTooltip.innerText = 'TEXXTTTT';
+  textBoxTooltip.innerText = '';
   formContainer.append(textBoxTooltipContainers);
   textBoxTooltipContainers.append(textBoxTooltip);
 
@@ -60,7 +124,8 @@ function buildStep1(rows) {
       // follow the URL
       window.open(url, '_blank');
     }
-    // TODO: move to step 2 for the form
+    step1Container.remove();
+    buildStep2(rows, block);
   });
 
   // 2. show the image on the right
@@ -68,7 +133,7 @@ function buildStep1(rows) {
   imageContainer.append(cols[1]);
   step1Container.append(imageContainer);
 
-  return step1Container;
+  block.append(step1Container);
 }
 
 export default function decorate(block) {
@@ -78,6 +143,5 @@ export default function decorate(block) {
     console.log('Registration form expects 3 rows. Make sure to edit the document correctly.');
     return;
   }
-  // TODO: depending on query params, set the correct step
-  block.append(buildStep1(rows));
+  buildStep1(rows, block);
 }
