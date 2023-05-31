@@ -1,10 +1,12 @@
 import ffetch from '../../scripts/ffetch.js';
 import { createElement } from '../../scripts/scripts.js';
 
-const RXBIN_REGISTRY = '/register-login/register-login.json';
-const GROUP_REGISTRY = '/register-login/register-login.json';
+// the name of the sheet where the groups are defined
+const GROUP_REGISTRY_SHEET_NAME = 'groups';
+// in-memory cache for the group lookup, populated during buildStep2()
+let groupsRegistryCache;
 
-function buildStep2(rows, block) {
+function buildStep2(rows, block, groupRegistry) {
   block.append(rows[1]);
   const cols = [...rows[1].children];
 
@@ -38,7 +40,12 @@ function buildStep2(rows, block) {
     event.preventDefault();
     const grpInput = textBox.value.toLowerCase();
 
-    const grpItems = await ffetch(GROUP_REGISTRY).sheet('groups').chunks(1000).all();
+    groupsRegistryCache = (groupsRegistryCache
+                          || await ffetch(groupRegistry)
+                            .sheet(GROUP_REGISTRY_SHEET_NAME)
+                            .chunks(1000)
+                            .all());
+    const grpItems = groupsRegistryCache;
     // {
     //   Group Id: "106110T80902",
     //   URL: "https://www.elixirsolutions.com/new-plans"
@@ -68,7 +75,7 @@ function buildStep2(rows, block) {
   block.append(stepContainer);
 }
 
-function buildStep1(rows, block) {
+function buildStep1(rows, block, rxBinRegistry) {
   rows[1].remove();
   rows[2].remove();
   const cols = [...rows[0].children];
@@ -106,7 +113,7 @@ function buildStep1(rows, block) {
     //     Requires Group Lookup: "No",
     //     URL: "https://member.envisionpharmacies.com/PortalUser/EpharmPortalSignin"
     // }
-    const rxItems = await ffetch(RXBIN_REGISTRY).all();
+    const rxItems = await ffetch(rxBinRegistry).all();
     const rxItem = rxItems.filter((rx) => rx['Rx Bin'] === rxInput).pop();
     if (rxItem === null || typeof (rxItem) === 'undefined') {
       textBoxTooltip.innerText = 'Please provide a valid Rx Bin Number.';
@@ -125,7 +132,7 @@ function buildStep1(rows, block) {
       window.open(url, '_blank');
     }
     step1Container.remove();
-    buildStep2(rows, block);
+    buildStep2(rows, block, rxBinRegistry);
   });
 
   // 2. show the image on the right
@@ -143,5 +150,10 @@ export default function decorate(block) {
     console.log('Registration form expects 3 rows. Make sure to edit the document correctly.');
     return;
   }
-  buildStep1(rows, block);
+  // extract the URL for the lookup data
+  const rxBinRegistry = rows[2].querySelector('a').href;
+  if (rxBinRegistry === null || typeof (rxBinRegistry) === 'undefined') {
+    return;
+  }
+  buildStep1(rows, block, rxBinRegistry);
 }
