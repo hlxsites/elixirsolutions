@@ -6,9 +6,14 @@ main .registration-form {
 }
 
 main .registration-form .registration-form-step {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 100%;
+}
+
+main .registration-form.step-1 .registration-form-step.registration-form-step-1,
+main .registration-form.step-2 .registration-form-step.registration-form-step-2 {
+    display: flex;
 }
 
 main .registration-form .registration-form-step .form-container {
@@ -118,4 +123,3 @@ main .registration-form .registration-form-step .image-container p:last-child {
         flex-direction: row;
     }
 }
-
