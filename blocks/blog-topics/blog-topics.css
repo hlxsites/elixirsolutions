@@ -1,49 +1,49 @@
-main .blog-topics-container {
-  grid-row: 3;
+.blog main .blog-topics-container {
+  grid-row: 101;
   grid-column: 1;
 }
 
 @media (min-width: 900px) {
-  main .blog-topics-container {
-    grid-row: 2 / 100;
+  .blog main .blog-topics-container {
+    grid-row: 2 / 101;
     grid-column: 2 / span 1;
   }
 }
 
-main .blog-topics .blog-topics-header {
+.blog main .blog-topics .blog-topics-header {
   color: #161b1e;
   font-size: 24px;
   font-weight: 500;
   margin: 20px 0 0;
 }
 
-main .blog-topics a {
+.blog main .blog-topics a {
   color: #676E71;
   text-decoration: none;
 }
 
-main .blog-topics a:hover {
+.blog main .blog-topics a:hover {
   color: #343a40;
   cursor: pointer;
 }
 
-main .blog-topics ul {
+.blog main .blog-topics ul {
   list-style: none;
   padding-left: 5px;
   margin: 10px 0;
 }
 
-main .blog-topics ul li {
+.blog main .blog-topics ul li {
   display: block;
   border-bottom: 1px solid #ddd;
   padding: 15px 0;
 }
 
-main .blog-topics ul li:last-child {
+.blog main .blog-topics ul li:last-child {
   border-bottom: unset;
 }
 
-main .blog-topics ul li a::before {
+.blog main .blog-topics ul li a::before {
   content: '';
   display: inline-block;
   background-image: url('/icons/angle-right-solid.svg');
