@@ -147,7 +147,7 @@ export default function decorate(block) {
   // expect three rows
   const rows = [...block.children];
   if (rows.length < 3) {
-    console.log('Registration form expects 3 rows. Make sure to edit the document correctly.');
+    // console.log('Registration form expects 3 rows. Make sure to edit the document correctly.');
     return;
   }
   // extract the URL for the lookup data
