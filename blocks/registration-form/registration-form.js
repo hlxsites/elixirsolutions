@@ -7,8 +7,11 @@ const GROUP_REGISTRY_SHEET_NAME = 'groups';
 // populated when step 2 is displayed
 let groupsRegistryCache;
 
-function buildForm(serchFn) {
+function buildForm(formLabelText, serchFn) {
   const wrapper = createElement('div', 'form-wrapper');
+  const lbl = createElement('label', ['registration-form-input-label']);
+  lbl.innerText = formLabelText;
+  wrapper.append(lbl);
 
   wrapper.append(createElement('input', ['registration-form-input', 'form-control'], {
     required: true,
@@ -34,7 +37,10 @@ function decorateFormSteps(row, i, serchFn) {
   row.classList.add('registration-form-step', `registration-form-step-${i}`);
   const formContainer = row.children[0];
   formContainer.classList.add('form-container');
-  const form = buildForm(serchFn);
+  const formLabel = formContainer.querySelector('strong');
+  const formLabelText = formLabel.innerText;
+  formLabel.remove();
+  const form = buildForm(formLabelText, serchFn);
   formContainer.append(form);
 
   const imageContainer = row.children[1];

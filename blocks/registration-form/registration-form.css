@@ -37,6 +37,13 @@ main .registration-form .registration-form-step .form-container button {
   line-height: 45px;
 }
 
+main .registration-form .registration-form-step .form-container .registration-form-input-label {
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 12px;
+}
+
 main .registration-form .registration-form-step .form-container .registration-form-input-tooltip {
     border: 1px solid #777;
     text-decoration: none;
