@@ -358,6 +358,16 @@ export function decorateMain(main, isFragment) {
 }
 
 /**
+ * Set the focus to main or the hero (if it exists) when LCP is reached.
+ * @param {Element} elem the container element to set focus on
+ */
+function setFocus(elem) {
+  const hero = elem.querySelector('.block.hero');
+  const focusElem = hero || elem;
+  focusElem.focus();
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
@@ -369,6 +379,7 @@ async function loadEager(doc) {
     decorateMain(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
+    setFocus(main);
   }
 }
 
