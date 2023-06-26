@@ -359,11 +359,11 @@ export function decorateMain(main, isFragment) {
 
 /**
  * Set the focus to main or the hero (if it exists) when LCP is reached.
- * @param {Element} elem the container element to set focus on
+ * @param {Element} main the container element to set focus on
  */
-function setFocus(elem) {
-  const hero = elem.querySelector('.block.hero');
-  const focusElem = hero || elem;
+function setFocus(main) {
+  const h1 = main.querySelector('h1');
+  const focusElem = h1 || elem;
   focusElem.focus();
 }
 
@@ -459,7 +459,10 @@ function loadDelayed() {
 }
 
 async function loadPage() {
+  document.body.setAttribute('aria-live', 'polite');
+  document.body.setAttribute('aria-busy', 'true');
   await loadEager(document);
+  document.body.setAttribute('aria-busy', 'false');
   await loadLazy(document);
   loadDelayed();
 }
