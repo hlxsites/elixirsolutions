@@ -462,8 +462,8 @@ async function loadPage() {
   document.body.setAttribute('aria-live', 'polite');
   document.body.setAttribute('aria-busy', 'true');
   await loadEager(document);
-  document.body.setAttribute('aria-busy', 'false');
   await loadLazy(document);
+  document.body.setAttribute('aria-busy', 'false');
   loadDelayed();
 }
 
