@@ -351,6 +351,7 @@ export function decorateMain(main, isFragment) {
     buildAutoBlocks(main);
   }
   decorateSections(main);
+  document.body.classList.add('appear');
   decorateSectionsExt(main);
   decorateBlocks(main);
   decorateBlogImage(main);
@@ -367,7 +368,6 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
 }
