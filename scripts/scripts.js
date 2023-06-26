@@ -364,6 +364,7 @@ export function decorateMain(main, isFragment) {
 function setFocus(main) {
   const h1 = main.querySelector('h1');
   const focusElem = h1 || main;
+  focusElem.setAttribute('tabindex', '-1');
   focusElem.focus();
 }
 
