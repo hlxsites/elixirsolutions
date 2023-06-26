@@ -307,7 +307,7 @@ export function decorateSections(main) {
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
-    section.style.display = 'none';
+    // section.style.display = 'none';
 
     /* process section metadata */
     const sectionMeta = section.querySelector('div.section-metadata');
@@ -342,7 +342,7 @@ export function updateSectionsStatus(main) {
         break;
       } else {
         section.dataset.sectionStatus = 'loaded';
-        section.style.display = null;
+        // section.style.display = null;
       }
     }
   }
@@ -562,7 +562,7 @@ export async function waitForLCP(lcpBlocks) {
   const hasLCPBlock = (block && lcpBlocks.includes(block.dataset.blockName));
   if (hasLCPBlock) await loadBlock(block);
 
-  document.body.style.display = null;
+  // document.body.style.display = null;
   const lcpCandidate = document.querySelector('main img');
   await new Promise((resolve) => {
     if (lcpCandidate && !lcpCandidate.complete) {
@@ -623,7 +623,7 @@ export function setup() {
  * Auto initializiation.
  */
 function init() {
-  document.body.style.display = 'none';
+  // document.body.style.display = 'none';
   setup();
   sampleRUM('top');
 
