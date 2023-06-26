@@ -307,7 +307,8 @@ export function decorateSections(main) {
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
-    // section.style.display = 'none';
+    section.style.display = 'none';
+    section.setAttribute('aria-busy', 'true');
 
     /* process section metadata */
     const sectionMeta = section.querySelector('div.section-metadata');
@@ -342,7 +343,8 @@ export function updateSectionsStatus(main) {
         break;
       } else {
         section.dataset.sectionStatus = 'loaded';
-        // section.style.display = null;
+        section.style.display = null;
+        section.setAttribute('aria-busy', 'false');
       }
     }
   }
