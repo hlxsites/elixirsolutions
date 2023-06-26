@@ -363,7 +363,7 @@ export function decorateMain(main, isFragment) {
  */
 function setFocus(main) {
   const h1 = main.querySelector('h1');
-  const focusElem = h1 || elem;
+  const focusElem = h1 || main;
   focusElem.focus();
 }
 
@@ -462,8 +462,8 @@ async function loadPage() {
   document.body.setAttribute('aria-live', 'polite');
   document.body.setAttribute('aria-busy', 'true');
   await loadEager(document);
-  await loadLazy(document);
   document.body.setAttribute('aria-busy', 'false');
+  await loadLazy(document);
   loadDelayed();
 }
 
