@@ -1,0 +1,17 @@
+.blog-highlight {
+  color: var(--clr-blue);
+  font-size: var(--body-font-size-m);
+  padding: 16px;
+  background-color: var(--clr-lightest-blue);
+  margin: 40px 0;
+}
+
+.blog-highlight div div *:is(:last-child) {
+  margin: 0;
+}
+
+.blog-highlight a {
+  text-decoration: underline;
+}
+
+.blog-highlight h3 { font-size: var(--heading-font-size-m) }

@@ -295,7 +295,7 @@ export default function decorateBlogImage(main) {
 }
 
 /**
- * redecorate button to make some changes after franklion default decoration runs
+ * redecorate button to make some changes after franklin default decoration runs
  * @param {Element} element container element
  */
 function reDecorateButtons(element) {

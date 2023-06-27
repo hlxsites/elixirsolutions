@@ -32,6 +32,7 @@ function setSelectedSearchOption(searchInput, resultsContainer, option) {
   clearSelectedSearchOption(searchInput, resultsContainer);
   option.setAttribute('aria-selected', true);
   searchInput.setAttribute('aria-activedescendant', option.id);
+  // option.querySelector('a').focus();
 }
 
 function incrementSelectedSearchOption(searchInput, resultsContainer, forward) {
@@ -45,7 +46,9 @@ function incrementSelectedSearchOption(searchInput, resultsContainer, forward) {
 
   clearSelectedSearchOption(searchInput, resultsContainer);
   if (newSelected) {
+    // console.log('incremented');
     newSelected.setAttribute('aria-selected', true);
+    // newSelected.querySelector('a').focus();
     searchInput.setAttribute('aria-activedescendant', newSelected.id);
   }
 }
@@ -68,6 +71,7 @@ async function execSearch(searchInput, resultsContainer) {
     for await (const res of results) {
       const li = createElement('li', 'search-result', {
         id: `search-option-${i}`,
+        role: 'option',
       });
       i += 1;
       const a = document.createElement('a');
@@ -98,11 +102,13 @@ async function execSearch(searchInput, resultsContainer) {
     }
 
     if (!hasResults) {
-      const span = document.createElement('span');
-      span.classList.add('search-no-results');
-      span.textContent = 'No Results Found.';
-      resultsContainer.append(span);
+      const li = createElement('li', ['search-result', 'search-no-results'], {
+        id: 'search-option-0',
+        role: 'option',
+      }, 'No Results Found.');
+      resultsContainer.append(li);
     }
+    incrementSelectedSearchOption(searchInput, resultsContainer, true);
     searchInput.setAttribute('aria-expanded', true);
   }
 }
