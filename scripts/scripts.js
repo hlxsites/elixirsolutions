@@ -380,7 +380,9 @@ async function loadEager(doc) {
     decorateMain(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
-    setFocus(main);
+    setTimeout(() => {
+      setFocus(main);
+    }, 250);
   }
 }
 
@@ -460,10 +462,7 @@ function loadDelayed() {
 }
 
 async function loadPage() {
-  document.body.setAttribute('aria-live', 'polite');
-  document.body.setAttribute('aria-busy', 'true');
   await loadEager(document);
-  document.body.setAttribute('aria-busy', 'false');
   await loadLazy(document);
   loadDelayed();
 }
