@@ -381,7 +381,10 @@ async function loadEager(doc) {
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
     setTimeout(() => {
-      setFocus(main);
+      const headerLoaded = doc.querySelector('header .header[data-block-status="loaded"]');
+      if (!headerLoaded) {
+        setFocus(main);
+      }
     }, 250);
   }
 }
