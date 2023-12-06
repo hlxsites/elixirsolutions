@@ -32,7 +32,7 @@ function buildSmallPost(post) {
   return postCard;
 }
 
-function buildPost(post, eager) {
+function buildPost(blogPath, post, eager) {
   const postCard = createElement('article', 'blog-post-card');
   const postDate = new Date(post.date * 1000); /* Unix timestamp convert to UTC date format */
   updateUTCDateToMatchWordDocDate(postDate);
@@ -61,7 +61,7 @@ function buildPost(post, eager) {
   const tags = JSON.parse(post.tags);
   tags.forEach((tag) => {
     const li = document.createElement('li');
-    li.innerHTML = `<a href="/blog/tag?tag=${encodeURIComponent(tag)}"><span class="icon icon-tag"></span>${tag}</a>`;
+    li.innerHTML = `<a href="/${blogPath}/tag?tag=${encodeURIComponent(tag)}"><span class="icon icon-tag"></span>${tag}</a>`;
     tagsUl.append(li);
   });
 
@@ -70,8 +70,12 @@ function buildPost(post, eager) {
 
 async function buildMiniFeed(block, ul) {
   const limit = block.dataset.limit ? Number(block.dataset.limit) : 4;
+  const blogPath = block.dataset.blogPath ? block.dataset.blogPath : 'blog';
+  const hideEmailForm = block.dataset.hideBlogEmailForm ? block.dataset.hideBlogEmailForm.toLowerCase() === 'true' : false;
+
   const blogPosts = ffetch('/query-index.json')
-    .filter((p) => p.path.startsWith('/blog/'))
+    .filter((p) => p.path.startsWith(`/${blogPath}/`))
+    .filter((p) => !p.path.endsWith(`/${blogPath}/tag`))
     .slice(0, limit + 1);
 
   let i = 0;
@@ -79,7 +83,7 @@ async function buildMiniFeed(block, ul) {
   for await (const post of blogPosts) {
     const li = document.createElement('li');
     if (i === 0) {
-      const callout = buildPost(post);
+      const callout = buildPost(blogPath, post);
       callout.classList.add('blog-post-callout-card');
       block.prepend(callout);
     } else {
@@ -90,16 +94,21 @@ async function buildMiniFeed(block, ul) {
     i += 1;
   }
 
-  const formFragmentWrapper = createElement('div');
-  block.append(formFragmentWrapper);
-  const fragment = buildBlock('blog-email-form', '');
-  formFragmentWrapper.append(fragment);
-  decorateBlock(fragment);
-  await loadBlock(fragment);
-  formFragmentWrapper.classList.add('appear');
+  if (!hideEmailForm) {
+    const formFragmentWrapper = createElement('div');
+    block.append(formFragmentWrapper);
+    const fragment = buildBlock('blog-email-form', '');
+    formFragmentWrapper.append(fragment);
+    decorateBlock(fragment);
+    await loadBlock(fragment);
+    formFragmentWrapper.classList.add('appear');
+  } else {
+    const emptyWrapper = createElement('div');
+    block.append(emptyWrapper);
+  }
 }
 
-async function buildBlogFeed(ul, pageNum, pagesElem) {
+async function buildBlogFeed(blogPath, ul, pageNum, pagesElem) {
   const limit = 10;
   const offset = pageNum * limit;
   let morePages = false;
@@ -110,7 +119,8 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
   if (tag) document.title += ` "${tag}"`;
 
   const blogPosts = ffetch('/query-index.json')
-    .filter((p) => (tag ? p.path.startsWith('/blog/') && p.tags.includes(tag) : p.path.startsWith('/blog/')))
+    .filter((p) => (tag ? p.path.startsWith(`/${blogPath}/`) && p.tags.includes(tag) : p.path.startsWith(`/${blogPath}/`)))
+    .filter((p) => !p.path.endsWith(`/${blogPath}/tag`))
     .slice(offset, offset + limit + 1);
 
   let i = 0;
@@ -124,7 +134,7 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
     }
 
     const li = document.createElement('li');
-    li.append(buildPost(post, i < 1));
+    li.append(buildPost(blogPath, post, i < 1));
     newUl.append(li);
 
     i += 1;
@@ -153,7 +163,7 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
   pagesElem.querySelectorAll('li > a').forEach((link) => {
     link.addEventListener('click', (evt) => {
       evt.preventDefault();
-      buildBlogFeed(ul, Number(link.dataset.page), pagesElem);
+      buildBlogFeed(blogPath, ul, Number(link.dataset.page), pagesElem);
     });
   });
 
@@ -168,8 +178,10 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
 }
 
 export default function decorate(block) {
+  const blogPathByUrl = window.location.pathname.startsWith('/member-blog') ? 'member-blog' : 'blog';
   const cfg = readBlockConfig(block);
   block.dataset.limit = cfg.limit || 4;
+  block.dataset.blogPath = cfg.blogpath || blogPathByUrl;
   block.innerHTML = '';
   const observer = new IntersectionObserver(async (entries) => {
     if (entries.some((e) => e.isIntersecting)) {
@@ -180,6 +192,7 @@ export default function decorate(block) {
       block.append(ul);
 
       if (small) {
+        block.dataset.hideBlogEmailForm = cfg.hideblogemailform ? cfg.hideblogemailform.toLowerCase() === 'true' : false;
         await buildMiniFeed(block, ul);
         return;
       }
@@ -191,7 +204,7 @@ export default function decorate(block) {
       const usp = new URLSearchParams(window.location.search);
       const page = usp.get('page');
       const pageNum = Number(!page ? '0' : page - 1);
-      buildBlogFeed(ul, pageNum, pagesElem);
+      buildBlogFeed(block.dataset.blogPath, ul, pageNum, pagesElem);
     }
   });
   observer.observe(block);

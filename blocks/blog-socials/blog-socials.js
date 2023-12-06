@@ -1,11 +1,12 @@
 import { createElement } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
+  const blogPath = window.location.pathname.startsWith('/member-blog') ? 'member-blog' : 'blog';
   const topics = createElement('div');
   const tags = document.querySelectorAll('head meta[property="article:tag"]');
   topics.append('Topics: ');
   const tagLinks = [];
-  tags.forEach((tag) => tagLinks.push(`<a href="/blog/tag?tag=${encodeURIComponent(tag.content)}">${tag.content}</a>`));
+  tags.forEach((tag) => tagLinks.push(`<a href="/${blogPath}/tag?tag=${encodeURIComponent(tag.content)}">${tag.content}</a>`));
 
   topics.innerHTML = `<p>
     Topics: ${tagLinks.join(', ')}
