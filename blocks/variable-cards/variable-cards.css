@@ -1,0 +1,128 @@
+.variable-cards {
+  --num-cols: 1;
+}
+
+
+@media (min-width: 37.5em) {
+  .variable-cards {
+    --num-cols: 2;
+  }
+
+  .variable-cards.teaser {
+    --num-cols: 1;
+  }
+}
+
+@media (min-width: 56.25em) {
+  .variable-cards {
+    --num-cols: 3;
+  }
+  
+  .variable-cards.cards-four-up {
+    --num-cols: 4;
+  }
+
+  .variable-cards.teaser {
+    --num-cols: 2;
+  }
+}
+
+.variable-cards > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--default-content-gap);
+  grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
+}
+
+.variable-cards > ul > li {
+  text-align: center;
+  margin: 0 auto;
+}
+
+@media (min-width: 37.5em) {
+  .variable-cards > ul > li {
+   text-align: left;
+  }
+}
+
+.variable-cards > ul > li img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+} 
+
+/* link styles */
+.variable-cards .card-link-wrapper {
+  text-decoration: none;
+  color: var(--text-color);
+  display: inline-block;
+}
+
+.variable-cards .cards-card-body :is(h2, h3, h4, h5, h6) {
+  color: var(--headline-color);
+  font-size: var(--heading-font-size-s);
+  margin-block: .75em;
+}
+
+.card-more-cta {
+margin-top: 1em;
+display: block;
+}
+
+.variable-cards .card-link-wrapper .card-more-cta {
+  color: var(--link-color);
+  font-weight: 800;
+  font-size: var(--body-font-size-m);
+}
+
+.variable-cards .card-link-wrapper .card-more-cta:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* teaser variable-cards */
+.variable-cards.teaser .card-link-wrapper {
+  display: grid;
+  grid-template-rows: 200px 1fr;
+  gap: 2rem;
+}
+
+.variable-cards.teaser > ul > li img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.variable-cards.teaser > ul > li .cards-card-image {
+  margin: 0 auto;
+}
+
+@media (min-width: 37.5em) {
+  .variable-cards.teaser .card-link-wrapper {
+    grid-template-rows: 1fr;
+    grid-template-columns: 200px 1fr;
+  }
+
+  .variable-cards.teaser > ul > li img {
+    height: auto;
+    width: 100%;
+  }
+
+  .variable-cards.teaser > ul > li {
+    max-width: 550px;
+  }
+}
+
+.odd-white .variable-cards > ul > li:nth-child(odd) {
+  background-color: var(--clr-off-white);
+  padding: 5px;
+}
+
+.even-blue .variable-cards > ul > li:nth-child(even) {
+  background-color: var(--clr-blue);
+  padding: 5px;
+  border-radius: 3%;
+}
+
