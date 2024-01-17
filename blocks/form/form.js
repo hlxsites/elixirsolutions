@@ -184,7 +184,7 @@ function buildCheckboxField(fieldDef) {
       data-id="${fieldDef.Field}" id="form${fieldDef.formIdx}-${fieldDef.Field}-${i}"
       ${fieldDef.Mandatory ? 'required' : ''} value="${o}"
       ${fieldDef.Type === 'radio' ? `name=radio-${fieldDef.idx}` : ''}>
-      <label class="custom-control-label" for="${fieldDef.Field}-${i}">${o}</label>
+      <label class="custom-control-label" for="form${fieldDef.formIdx}-${fieldDef.Field}-${i}">${o}</label>
     `;
 
     if (fieldDef.Type === 'checkbox') {
