@@ -218,7 +218,8 @@ function buildBreadcrumbBlock(main) {
 }
 
 async function buildBlogFormBlock(main) {
-  if (document.body.classList.contains('blog')) {
+  const hideEmailForm = getMetadata('hide-blog-email-form');
+  if (document.body.classList.contains('blog') && hideEmailForm !== 'true') {
     const section = main.querySelector('main > div:last-child');
     const fragment = buildBlock('blog-email-form', '');
     section.append(fragment);

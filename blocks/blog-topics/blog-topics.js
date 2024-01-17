@@ -1,8 +1,8 @@
 import ffetch from '../../scripts/ffetch.js';
 
-const getTopicCount = async () => {
+const getTopicCount = async (blogPath) => {
   const allPosts = await ffetch('/query-index.json')
-    .filter((p) => p.path.startsWith('/blog/'))
+    .filter((p) => p.path.startsWith(`/${blogPath}/`))
     .all();
 
   const topicCounts = {};
@@ -22,10 +22,10 @@ const getTopicCount = async () => {
   return entries;
 };
 
-const renderTopics = (ul, topicCount) => {
+const renderTopics = (blogPath, ul, topicCount) => {
   topicCount.forEach((topic) => {
     const li = document.createElement('li');
-    li.innerHTML = `<a href="/blog/tag?tag=${encodeURIComponent(topic[0])}">
+    li.innerHTML = `<a href="/${blogPath}/tag?tag=${encodeURIComponent(topic[0])}">
       ${topic[0]} (${topic[1]})
     </a>`;
     ul.appendChild(li);
@@ -33,7 +33,8 @@ const renderTopics = (ul, topicCount) => {
 };
 
 export default async function decorate(block) {
-  const topicCount = await getTopicCount();
+  const blogPath = window.location.pathname.startsWith('/member-blog') ? 'member-blog' : 'blog';
+  const topicCount = await getTopicCount(blogPath);
 
   const header = document.createElement('h3');
   header.classList.add('blog-topics-header');
@@ -42,5 +43,5 @@ export default async function decorate(block) {
 
   const ul = document.createElement('ul');
   block.appendChild(ul);
-  renderTopics(ul, topicCount);
+  renderTopics(blogPath, ul, topicCount);
 }
